@@ -1,54 +1,45 @@
-package main
+package smtest
 
-import (
-	"fmt"
-	//"github.com/davecheney/profile"
-)
-
-const totalMax = 1000000000
-
-type stateFunc func() stateFunc
+type sffStateFunc func() sffStateFunc
 
 type Machine struct {
 	total int64
 }
 
-func (m *Machine) initialize() stateFunc {
+func (m *Machine) initialize() sffStateFunc {
 	m.total = 0
 	return m.checkEven
 }
 
-func (m *Machine) checkEven() stateFunc {
+func (m *Machine) checkEven() sffStateFunc {
 	if m.total%2 == 0 {
 		return m.addOne
 	}
 	return m.addThree
 }
 
-func (m *Machine) addOne() stateFunc {
+func (m *Machine) addOne() sffStateFunc {
 	m.total += 1
 	return m.checkFinished
 }
 
-func (m *Machine) addThree() stateFunc {
+func (m *Machine) addThree() sffStateFunc {
 	m.total += 3
 	return m.checkFinished
 }
 
-func (m *Machine) checkFinished() stateFunc {
+func (m *Machine) checkFinished() sffStateFunc {
 	if m.total > totalMax {
 		return m.finished
 	}
 	return m.checkEven
 }
 
-func (m *Machine) finished() stateFunc {
-	fmt.Println(m.total)
+func (m *Machine) finished() sffStateFunc {
 	return nil
 }
 
-func main() {
-	//defer profile.Start(profile.CPUProfile).Stop()
+func runStructFuncFunc() {
 	m := new(Machine)
 	fn := m.initialize
 	for fn != nil {

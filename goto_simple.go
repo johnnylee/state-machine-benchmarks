@@ -1,10 +1,6 @@
-package main
+package smtest
 
-import "fmt"
-
-const totalMax = 1000000000
-
-func main() {
+func runGotoSimple() {
 	var total int64
 	goto initialize
 
@@ -33,5 +29,4 @@ checkFinished:
 	goto checkEven
 
 finished:
-	fmt.Println(total)
 }

@@ -1,58 +1,52 @@
-package main
+package smtest
 
-import "fmt"
-
-const totalMax = 1000000000
-
-func stateInitialize() int64 {
+func gfStateInitialize() int64 {
 	return 0
 }
 
-func stateCheckEven(total int64) bool {
+func gfStateCheckEven(total int64) bool {
 	return total%2 == 0
 }
 
-func stateAddOne(total int64) int64 {
+func gfStateAddOne(total int64) int64 {
 	return total + 1
 }
 
-func stateAddThree(total int64) int64 {
+func gfStateAddThree(total int64) int64 {
 	return total + 3
 }
 
-func stateCheckFinished(total int64) bool {
+func gfStateCheckFinished(total int64) bool {
 	return total > totalMax
 }
 
-func main() {
+func runGotoFunctions() {
 	var total int64
-
 	goto initialize
 
 initialize:
-	total = stateInitialize()
+	total = gfStateInitialize()
 	goto checkEven
 
 checkEven:
-	if stateCheckEven(total) {
+	if gfStateCheckEven(total) {
 		goto addOne
 	}
 	goto addThree
 
 addOne:
-	total = stateAddOne(total)
+	total = gfStateAddOne(total)
 	goto checkFinished
 
 addThree:
-	total = stateAddThree(total)
+	total = gfStateAddThree(total)
 	goto checkFinished
 
 checkFinished:
-	if stateCheckFinished(total) {
+	if gfStateCheckFinished(total) {
 		goto finished
 	}
 	goto checkEven
 
 finished:
-	fmt.Println(total)
 }

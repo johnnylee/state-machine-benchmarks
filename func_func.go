@@ -1,52 +1,45 @@
-package main
+package smtest
 
-import (
-	"fmt"
-	//"github.com/davecheney/profile"
-)
+import ()
 
-const totalMax = 1000000000
+type ffStateFunc func(*int64) ffStateFunc
 
-type stateFunc func(*int64) stateFunc
-
-func stateInitialize(total *int64) stateFunc {
+func ffStateInitialize(total *int64) ffStateFunc {
 	*total = 0
-	return stateCheckEven
+	return ffStateCheckEven
 }
 
-func stateCheckEven(total *int64) stateFunc {
+func ffStateCheckEven(total *int64) ffStateFunc {
 	if *total%2 == 0 {
-		return stateAddOne
+		return ffStateAddOne
 	}
-	return stateAddThree
+	return ffStateAddThree
 }
 
-func stateAddOne(total *int64) stateFunc {
+func ffStateAddOne(total *int64) ffStateFunc {
 	*total += 1
-	return stateCheckFinished
+	return ffStateCheckFinished
 }
 
-func stateAddThree(total *int64) stateFunc {
+func ffStateAddThree(total *int64) ffStateFunc {
 	*total += 3
-	return stateCheckFinished
+	return ffStateCheckFinished
 }
 
-func stateCheckFinished(total *int64) stateFunc {
+func ffStateCheckFinished(total *int64) ffStateFunc {
 	if *total > totalMax {
-		return stateFinished
+		return ffStateFinished
 	}
-	return stateCheckEven
+	return ffStateCheckEven
 }
 
-func stateFinished(total *int64) stateFunc {
-	fmt.Println(*total)
+func ffStateFinished(total *int64) ffStateFunc {
 	return nil
 }
 
-func main() {
-	//defer profile.Start(profile.CPUProfile).Stop()
+func runFuncFunc() {
 	var total int64
-	fn := stateInitialize
+	fn := ffStateInitialize
 	for fn != nil {
 		fn = fn(&total)
 	}
