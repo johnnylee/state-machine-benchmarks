@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	//"github.com/davecheney/profile"
+)
 
 const totalMax = 1000000000
 
@@ -41,6 +44,7 @@ func stateFinished(total *int64) stateFunc {
 }
 
 func main() {
+	//defer profile.Start(profile.CPUProfile).Stop()
 	var total int64
 	fn := stateInitialize
 	for fn != nil {

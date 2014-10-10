@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	//"github.com/davecheney/profile"
+)
 
 const totalMax = 1000000000
 
@@ -45,6 +48,7 @@ func (m *Machine) finished() stateFunc {
 }
 
 func main() {
+	//defer profile.Start(profile.CPUProfile).Stop()
 	m := new(Machine)
 	fn := m.initialize
 	for fn != nil {
