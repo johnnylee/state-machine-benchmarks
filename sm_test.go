@@ -33,3 +33,9 @@ func BenchmarkStructFuncFunc2(b *testing.B) {
 		runStructFuncFunc2()
 	}
 }
+
+func BenchmarkLoop(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		runLoop()
+	}
+}
